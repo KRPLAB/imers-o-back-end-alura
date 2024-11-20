@@ -1,29 +1,12 @@
 import express from "express";
+import { routes } from "./src/routes/postRoutes.js";
 
-const posts = [
-    { id: 1, descricao: "Uma foto teste", imagem: "https://placecats.com/millie/300/150" },
-    { id: 2, descricao: "Gato fazendo yoga", imagem: "https://placecats.com/millie/300/150" },
-    { id: 3, descricao: "Gato fazendo panqueca", imagem: "https://placecats.com/millie/300/150" },
-];
-
+// Inicializa o servidor Express
 const app = express();
-app.use(express.json());
 
+routes(app);
+
+// Inicia o servidor na porta 3000
 app.listen(3000, () => {
     console.log("Servidor escutando...");
-});
-
-app.get("/posts", (req, res) => {
-    res.status(200).json(posts);
-});
-
-const buscaPostPorID = (id) => {
-    return posts.findIndex((post) => {
-        return post.id === Number(id);
-    })
-} 
-
-app.get("/posts/:id", (req, res) => {
-    const index = buscaPostPorID(req.params.id)
-    res.status(200).json(posts[index]);
 });
